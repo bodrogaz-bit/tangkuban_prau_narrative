@@ -1,0 +1,1492 @@
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEGEND QUEST: The Secret of Tangkuban Perahu</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wood: {
+              DEFAULT: '#4B3025',
+              dark: '#321F17',
+              light: '#6E4839'
+            },
+            parchment: {
+              DEFAULT: '#D9C29A',
+              dark: '#BBA278',
+              light: '#EEDCB8'
+            },
+            aged: '#F4E8CC',
+            forest: {
+              DEFAULT: '#405744',
+              dark: '#2A3B2D',
+              light: '#5B7B61'
+            },
+            gold: {
+              DEFAULT: '#C49A45',
+              bright: '#E5B85C',
+              dark: '#96742E'
+            },
+            terracotta: '#963F32'
+          },
+          fontFamily: {
+            serif: ['Cinzel', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #321F17;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C49A45;
+      border-radius: 5px;
+    }
+    
+    /* Parchment & Wood Style Backgrounds */
+    .bg-parchment-pattern {
+      background-color: #F4E8CC;
+      background-image: radial-gradient(#D9C29A 1px, transparent 1px), radial-gradient(#D9C29A 1px, #F4E8CC 1px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+    }
+
+    .wood-border {
+      border: 6px solid #4B3025;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .gold-emboss {
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(196,154,69,0.5);
+    }
+
+    .glass-dark {
+      background: rgba(32, 20, 15, 0.88);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Keyframe Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 5px rgba(196, 154, 69, 0.4)); }
+      50% { filter: drop-shadow(0 0 15px rgba(229, 184, 92, 0.9)); }
+    }
+    .animate-glow {
+      animation: pulse-glow 2.5s infinite;
+    }
+
+    @keyframes fog-move {
+      0% { transform: translateX(-10%); }
+      50% { transform: translateX(10%); }
+      100% { transform: translateX(-10%); }
+    }
+    .animate-fog {
+      animation: fog-move 20s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-wood-dark text-wood-dark font-sans antialiased min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-gold selection:text-wood-dark">
+
+  <!-- BACKGROUND ATMOSPHERE (Fog & Sparks Effect) -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-b from-wood-dark via-transparent to-wood-dark z-10"></div>
+    <div class="absolute -inset-x-20 top-0 h-96 bg-forest-light/20 blur-3xl animate-fog"></div>
+    <div class="absolute top-1/3 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl animate-float"></div>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <div class="relative z-10 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER / PLAYER STATS BAR -->
+    <header class="sticky top-0 z-40 bg-wood-dark/95 border-b-4 border-gold px-4 py-2 shadow-2xl backdrop-blur-md">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        
+        <!-- LOGO / BRANDING -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('home')">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold to-terracotta border-2 border-gold flex items-center justify-center text-aged shadow-lg">
+            <i class="fa-solid fa-mountain text-lg"></i>
+          </div>
+          <div>
+            <h1 class="font-serif font-bold text-gold text-sm sm:text-base leading-tight tracking-wide">LEGEND QUEST</h1>
+            <p class="text-[10px] sm:text-xs text-parchment opacity-80">Tangkuban Perahu Edition</p>
+          </div>
+        </div>
+
+        <!-- PLAYER STATS (XP & LEVEL) -->
+        <div class="flex items-center gap-4 bg-wood/80 px-4 py-1.5 rounded-full border border-gold/40">
+          
+          <!-- LEVEL BADGE -->
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-gold text-base"></i>
+            <div class="text-left">
+              <span class="text-[10px] block text-parchment uppercase tracking-wider leading-none">Rank</span>
+              <span id="playerRank" class="font-bold text-xs sm:text-sm text-gold-bright">Legend Rookie</span>
+            </div>
+          </div>
+
+          <div class="h-6 w-px bg-gold/30"></div>
+
+          <!-- XP PROGRESS -->
+          <div class="flex items-center gap-2 min-w-[120px] sm:min-w-[160px]">
+            <i class="fa-solid fa-bolt text-yellow-400 text-sm"></i>
+            <div class="flex-1">
+              <div class="flex justify-between text-[10px] text-parchment mb-0.5">
+                <span>XP</span>
+                <span id="xpText" class="font-semibold text-gold">0 / 500</span>
+              </div>
+              <div class="w-full bg-wood-dark h-2 rounded-full overflow-hidden border border-gold/30">
+                <div id="xpBar" class="bg-gradient-to-r from-gold-dark via-gold to-yellow-300 h-full w-0 transition-all duration-500"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ACTION CONTROLS -->
+        <div class="flex items-center space-x-2">
+          <!-- AUDIO TOGGLE BUTTON -->
+          <button id="sfxBtn" onclick="toggleAudio()" class="p-2 w-9 h-9 rounded-full bg-wood hover:bg-wood-light border border-gold/50 text-gold transition flex items-center justify-center" title="Toggle Sound Effects">
+            <i id="sfxIcon" class="fa-solid fa-volume-high"></i>
+          </button>
+
+          <!-- MAP / NAV MODAL BTN -->
+          <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs sm:text-sm transition flex items-center gap-1.5 shadow-md">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span class="hidden sm:inline">Quest Map</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- CONTENT CONTAINER -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+
+      <!-- ================= SECTION 1: HOME SCREEN ================= -->
+      <section id="sec-home" class="space-y-6 text-center transition-all duration-500">
+        
+        <!-- HERO BANNER CONTAINER -->
+        <div class="relative bg-parchment-pattern wood-border rounded-2xl p-6 sm:p-10 shadow-2xl overflow-hidden">
+          
+          <!-- SUNDANESE BATIK ACCENT CORNERS -->
+          <div class="absolute top-2 left-2 text-wood/30 text-2xl"><i class="fa-solid fa-leaf"></i></div>
+          <div class="absolute top-2 right-2 text-wood/30 text-2xl"><i class="fa-solid fa-leaf"></i></div>
+          <div class="absolute bottom-2 left-2 text-wood/30 text-2xl"><i class="fa-solid fa-leaf"></i></div>
+          <div class="absolute bottom-2 right-2 text-wood/30 text-2xl"><i class="fa-solid fa-leaf"></i></div>
+
+          <!-- SUBTITLE & MAIN TITLE -->
+          <div class="space-y-2 mb-6">
+            <span class="inline-block px-3 py-1 bg-terracotta text-aged text-xs font-semibold rounded-full uppercase tracking-widest shadow">
+              Class VIII SMP/MTs • English Narrative Text
+            </span>
+            <h2 class="text-3xl sm:text-5xl font-serif font-extrabold text-wood tracking-tight leading-tight gold-emboss">
+              LEGEND QUEST
+            </h2>
+            <p class="text-base sm:text-xl font-serif italic text-wood-light font-bold">
+              "The Secret of Tangkuban Perahu"
+            </p>
+            <p class="text-xs sm:text-sm text-wood/80 max-w-xl mx-auto font-medium">
+              Explore the Legend • Master the Story • Discover the Moral
+            </p>
+          </div>
+
+          <!-- HERO VISUAL VECTOR ART WORK (Tangkuban Perahu + Characters) -->
+          <div class="relative my-6 max-w-md mx-auto h-48 sm:h-56 bg-gradient-to-b from-sky-200 via-amber-100 to-forest-light/40 rounded-xl wood-border overflow-hidden flex items-end justify-center shadow-inner">
+            
+            <!-- Mountain Silhouette -->
+            <svg class="absolute bottom-0 w-full h-36 text-forest-dark" viewBox="0 0 500 150" fill="currentColor">
+              <!-- Up-turned boat mountain shape -->
+              <path d="M0,150 L50,110 L150,70 L250,50 L350,70 L450,110 L500,150 Z" opacity="0.9"/>
+              <path d="M100,150 L200,85 L250,60 L300,85 L400,150 Z" fill="#2A3B2D"/>
+            </svg>
+            
+            <!-- Fog / Clouds -->
+            <div class="absolute inset-0 bg-gradient-to-t from-parchment/60 via-transparent to-transparent"></div>
+
+            <!-- SVG Mini Avatar Characters -->
+            <div class="relative z-10 flex items-end justify-center gap-6 mb-2">
+              <!-- Dayang Sumbi -->
+              <div class="flex flex-col items-center">
+                <div class="w-12 h-12 rounded-full bg-terracotta border-2 border-gold flex items-center justify-center text-aged shadow-lg text-xl animate-float">
+                  👸
+                </div>
+                <span class="text-[10px] font-bold bg-wood text-gold px-2 py-0.5 rounded mt-1">Dayang Sumbi</span>
+              </div>
+              <!-- Sangkuriang -->
+              <div class="flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-forest border-2 border-gold flex items-center justify-center text-aged shadow-lg text-2xl animate-glow">
+                  🏹
+                </div>
+                <span class="text-[10px] font-bold bg-wood text-gold px-2 py-0.5 rounded mt-1">Sangkuriang</span>
+              </div>
+              <!-- Tumang -->
+              <div class="flex flex-col items-center">
+                <div class="w-10 h-10 rounded-full bg-wood border-2 border-gold flex items-center justify-center text-aged shadow-lg text-lg">
+                  🐕
+                </div>
+                <span class="text-[10px] font-bold bg-wood text-gold px-2 py-0.5 rounded mt-1">Tumang</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- NARRATIVE OPENING SCROLL -->
+          <div class="bg-aged p-4 sm:p-5 rounded-xl border border-gold/60 max-w-2xl mx-auto shadow-md mb-8 text-left relative">
+            <div class="flex items-start gap-3">
+              <button onclick="speakText('Welcome, Legend Explorer! A mysterious story awaits you in the land of West Java. Learn the legend, unlock the quests, and discover the lesson behind the story!')" class="p-2 rounded-lg bg-gold/20 hover:bg-gold/40 text-wood transition" title="Listen to Narration">
+                <i class="fa-solid fa-volume-high text-lg"></i>
+              </button>
+              <div class="text-xs sm:text-sm text-wood space-y-1">
+                <span class="font-bold uppercase text-[10px] tracking-widest text-terracotta block">Narrator</span>
+                <p class="italic">"Welcome, Legend Explorer! A mysterious story awaits you in the land of West Java. Learn the legend, unlock the quests, and discover the lesson behind the story!"</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOME CTA BUTTONS -->
+          <div class="flex flex-wrap justify-center gap-4">
+            <button onclick="playSFX('click'); showSection('objectives')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-terracotta to-wood hover:from-wood hover:to-terracotta text-aged font-serif font-bold text-sm sm:text-base border-2 border-gold shadow-xl hover:scale-105 transition transform flex items-center gap-2">
+              <i class="fa-solid fa-scroll"></i> Learning Objectives
+            </button>
+            <button onclick="playSFX('click'); showSection('quest-map')" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-gold via-gold-bright to-gold text-wood-dark font-serif font-extrabold text-base sm:text-lg border-2 border-wood shadow-xl hover:scale-105 transition transform flex items-center gap-2 animate-glow">
+              <i class="fa-solid fa-compass"></i> START ADVENTURE
+            </button>
+            <button onclick="playSFX('click'); openModal('modal-how-to-play')" class="px-6 py-3.5 rounded-xl bg-forest hover:bg-forest-dark text-aged font-serif font-bold text-sm sm:text-base border-2 border-gold/50 shadow-xl hover:scale-105 transition transform flex items-center gap-2">
+              <i class="fa-solid fa-circle-info"></i> How To Play
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION 2: LEARNING OBJECTIVES ================= -->
+      <section id="sec-objectives" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-6 sm:p-8 shadow-2xl">
+          
+          <div class="text-center mb-6">
+            <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Target Pembelajaran</span>
+            <h2 class="text-2xl sm:text-4xl font-serif font-bold text-wood gold-emboss">LEARNING OBJECTIVES</h2>
+            <p class="text-xs sm:text-sm text-wood/80 mt-1">Capaian Pembelajaran Bahasa Inggris - Teks Naratif Legenda</p>
+          </div>
+
+          <!-- OBJECTIVES GRID -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">1</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Explain the definition and social function of narrative text and legend.</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">2</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Identify 8 specific characteristics of a legend text.</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">3</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Identify key characters, setting, problem, and solution of the story.</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">4</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Recognize generic structure: Orientation, Complication, and Resolution.</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">5</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Identify language features (Past tense, action verbs, time connectives).</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">6</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Comprehend key events in "The Legend of Tangkuban Perahu".</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">7</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Extract moral values and lessons for real-life applications.</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 flex items-start gap-3 shadow-sm hover:border-gold transition">
+              <div class="w-8 h-8 rounded-full bg-forest text-aged flex items-center justify-center font-bold text-sm shrink-0">8</div>
+              <p class="text-xs sm:text-sm text-wood font-medium">Demonstrate mastery through Boss Quiz and complete reflection ticket.</p>
+            </div>
+
+          </div>
+
+          <div class="flex justify-center pt-4">
+            <button onclick="playSFX('click'); showSection('quest-map')" class="px-8 py-3 rounded-xl bg-gold hover:bg-gold-bright text-wood-dark font-serif font-extrabold text-base border-2 border-wood shadow-lg transition transform hover:scale-105">
+              LET'S BEGIN ADVENTURE <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 3: QUEST MAP ================= -->
+      <section id="sec-quest-map" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+          
+          <div class="text-center mb-6">
+            <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Peta Petualangan Belajar</span>
+            <h2 class="text-2xl sm:text-4xl font-serif font-bold text-wood gold-emboss">QUEST MAP</h2>
+            <p class="text-xs sm:text-sm text-wood/80">Pilih misi untuk memulai pembelajaran. Selesaikan misi untuk membuka level baru!</p>
+          </div>
+
+          <!-- MAP NODES CONTAINER -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10 my-6">
+
+            <!-- QUEST 1 NODE -->
+            <div onclick="openQuest(1)" class="cursor-pointer bg-aged p-5 rounded-2xl border-2 border-gold shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-forest text-aged font-bold text-[10px] uppercase">Quest 1</span>
+                <span id="badge-q1" class="text-xs font-bold text-wood/50"><i class="fa-solid fa-circle-check"></i> 50 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">What is Narrative Text?</h3>
+              <p class="text-xs text-wood/70 mt-1">Pelajari pengertian teks naratif, 4 elemen utama & mini-game matching.</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-semibold text-terracotta">
+                <span>Start Quest</span>
+                <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+            <!-- QUEST 2 NODE -->
+            <div onclick="openQuest(2)" class="cursor-pointer bg-aged p-5 rounded-2xl border-2 border-gold shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-forest text-aged font-bold text-[10px] uppercase">Quest 2</span>
+                <span id="badge-q2" class="text-xs font-bold text-wood/50"><i class="fa-solid fa-circle-check"></i> 75 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">What is a Legend?</h3>
+              <p class="text-xs text-wood/70 mt-1">Pahami 8 ciri khusus legenda & ikuti tantangan sorting "Legend or Not?".</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-semibold text-terracotta">
+                <span>Start Quest</span>
+                <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+            <!-- QUEST 3 NODE -->
+            <div onclick="openQuest(3)" class="cursor-pointer bg-aged p-5 rounded-2xl border-2 border-gold shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-forest text-aged font-bold text-[10px] uppercase">Quest 3</span>
+                <span id="badge-q3" class="text-xs font-bold text-wood/50"><i class="fa-solid fa-circle-check"></i> 75 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">Meet the Characters</h3>
+              <p class="text-xs text-wood/70 mt-1">Kenali Dayang Sumbi, Sangkuriang, dan Tumang secara mendalam.</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-semibold text-terracotta">
+                <span>Start Quest</span>
+                <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+            <!-- QUEST 4 NODE -->
+            <div onclick="openQuest(4)" class="cursor-pointer bg-aged p-5 rounded-2xl border-2 border-gold shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-forest text-aged font-bold text-[10px] uppercase">Quest 4</span>
+                <span id="badge-q4" class="text-xs font-bold text-wood/50"><i class="fa-solid fa-circle-check"></i> 100 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">Read The Legend</h3>
+              <p class="text-xs text-wood/70 mt-1">Buku cerita interaktif 5 adegan dilengkapi audio narasi & terjemahan.</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-semibold text-terracotta">
+                <span>Start Quest</span>
+                <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+            <!-- QUEST 5 NODE -->
+            <div onclick="openQuest(5)" class="cursor-pointer bg-aged p-5 rounded-2xl border-2 border-gold shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-forest text-aged font-bold text-[10px] uppercase">Quest 5</span>
+                <span id="badge-q5" class="text-xs font-bold text-wood/50"><i class="fa-solid fa-circle-check"></i> 100 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">Language & Structure</h3>
+              <p class="text-xs text-wood/70 mt-1">Bedah Struktur Generik & Unsur Kebahasaan (Past Tense, Action Verbs).</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-semibold text-terracotta">
+                <span>Start Quest</span>
+                <i class="fa-solid fa-chevron-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+            <!-- QUEST 6 NODE (BOSS QUIZ) -->
+            <div onclick="openQuest(6)" class="cursor-pointer bg-gradient-to-br from-terracotta/10 via-aged to-gold/20 p-5 rounded-2xl border-2 border-terracotta shadow-md hover:shadow-2xl hover:border-gold-bright hover:-translate-y-1 transition duration-300 relative group">
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full bg-terracotta text-aged font-bold text-[10px] uppercase shadow">Boss Quest</span>
+                <span id="badge-q6" class="text-xs font-bold text-terracotta"><i class="fa-solid fa-crown"></i> 100 XP</span>
+              </div>
+              <h3 class="font-serif font-bold text-lg text-wood group-hover:text-terracotta transition">Boss Quiz & Reflection</h3>
+              <p class="text-xs text-wood/70 mt-1">Evaluasi akhir 10 soal, dapatkan sertifikat Legend Master & isi refleksi!</p>
+              <div class="mt-4 flex justify-between items-center text-xs font-bold text-terracotta">
+                <span>Face The Boss</span>
+                <i class="fa-solid fa-dragon group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 4: QUEST 1 ================= -->
+      <section id="sec-q1" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <!-- QUEST HEADER -->
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Quest 1</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">What is a Narrative Text?</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <!-- CONCEPT EXPLANATION -->
+          <div class="space-y-4 mb-6">
+            <div class="bg-aged p-4 rounded-xl border-l-4 border-gold shadow-sm">
+              <h4 class="font-bold text-wood text-sm sm:text-base flex items-center gap-2">
+                <i class="fa-solid fa-book-open text-gold"></i> Definition
+              </h4>
+              <p class="text-xs sm:text-sm text-wood font-serif italic mt-1">
+                "A narrative text is a text that tells a story. It usually has characters, a setting, a problem, and a solution."
+              </p>
+              <p class="text-xs text-wood/80 mt-2 font-medium bg-parchment/60 p-2 rounded">
+                <strong>Penjelasan ID:</strong> Narrative text adalah teks yang menceritakan suatu kisah. Teks ini bertujuan menghibur pembaca dan memiliki unsur tokoh, latar, masalah, dan penyelesaian.
+              </p>
+            </div>
+
+            <!-- 4 INTERACTIVE ELEMENT CARDS -->
+            <h4 class="font-serif font-bold text-wood text-base mt-6">4 Essential Story Elements:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <div onclick="playSFX('click'); openElementModal('characters')" class="bg-aged p-4 rounded-xl border border-gold/50 shadow hover:border-gold hover:shadow-md cursor-pointer transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-terracotta text-aged flex items-center justify-center text-xl shrink-0">👥</div>
+                  <div>
+                    <h5 class="font-bold text-wood text-sm">1. Characters</h5>
+                    <p class="text-xs text-wood/70">The people or animals in the story.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div onclick="playSFX('click'); openElementModal('setting')" class="bg-aged p-4 rounded-xl border border-gold/50 shadow hover:border-gold hover:shadow-md cursor-pointer transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-forest text-aged flex items-center justify-center text-xl shrink-0">🏞️</div>
+                  <div>
+                    <h5 class="font-bold text-wood text-sm">2. Setting</h5>
+                    <p class="text-xs text-wood/70">When and where the story takes place.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div onclick="playSFX('click'); openElementModal('problem')" class="bg-aged p-4 rounded-xl border border-gold/50 shadow hover:border-gold hover:shadow-md cursor-pointer transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-gold text-wood-dark flex items-center justify-center text-xl shrink-0">⚡</div>
+                  <div>
+                    <h5 class="font-bold text-wood text-sm">3. Problem (Complication)</h5>
+                    <p class="text-xs text-wood/70">The main conflict faced by characters.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div onclick="playSFX('click'); openElementModal('solution')" class="bg-aged p-4 rounded-xl border border-gold/50 shadow hover:border-gold hover:shadow-md cursor-pointer transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-lg bg-wood text-aged flex items-center justify-center text-xl shrink-0">✨</div>
+                  <div>
+                    <h5 class="font-bold text-wood text-sm">4. Solution (Resolution)</h5>
+                    <p class="text-xs text-wood/70">How the problem is solved.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- MINI GAME: MATCH THE STORY ELEMENTS -->
+          <div class="bg-wood/5 border border-gold/40 p-5 rounded-2xl my-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h4 class="font-serif font-bold text-wood text-base">Mini Game: Match The Story Elements!</h4>
+                <p class="text-xs text-wood/70">Cocokkan elemen cerita Tangkuban Perahu dengan deskripsinya yang tepat!</p>
+              </div>
+              <span class="text-xs font-bold text-terracotta bg-terracotta/10 px-2.5 py-1 rounded-full">+50 XP</span>
+            </div>
+
+            <div id="q1-game-container" class="space-y-3">
+              <!-- Game questions dynamically generated -->
+            </div>
+            
+            <button id="btn-submit-q1" onclick="checkQ1Game()" class="mt-4 w-full py-3 bg-forest hover:bg-forest-dark text-aged font-bold text-sm rounded-xl transition shadow">
+              Check Answers & Earn XP
+            </button>
+          </div>
+
+          <!-- NAVIGATION BOTTOM -->
+          <div class="flex justify-between items-center pt-4 border-t border-wood/20">
+            <button onclick="showSection('quest-map')" class="px-5 py-2.5 rounded-xl bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              Back to Map
+            </button>
+            <button onclick="completeQuest(1); openQuest(2)" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs transition shadow flex items-center gap-1">
+              Next: Quest 2 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 5: QUEST 2 ================= -->
+      <section id="sec-q2" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Quest 2</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">What is a Legend?</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <div class="bg-aged p-4 rounded-xl border-l-4 border-terracotta shadow-sm mb-6">
+            <h4 class="font-bold text-wood text-sm sm:text-base flex items-center gap-2">
+              <i class="fa-solid fa-monument text-terracotta"></i> Legend Definition
+            </h4>
+            <p class="text-xs sm:text-sm text-wood font-serif italic mt-1">
+              "A legend is a traditional story connected to a specific place or history, passed down through generations."
+            </p>
+            <p class="text-xs text-wood/80 mt-2 font-medium bg-parchment/60 p-2 rounded">
+              <strong>Penjelasan ID:</strong> Legenda adalah cerita rakyat tradisional yang dipercaya berkaitan dengan sejarah atau asal-usul tempat nyata, mengandung unsur magis, dan diwariskan secara lisan.
+            </p>
+          </div>
+
+          <!-- 8 CHARACTERISTICS GRID -->
+          <h4 class="font-serif font-bold text-wood text-base mb-3">8 Characteristics of a Legend:</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+            
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">🏛️</span>
+              <h5 class="font-bold text-wood text-xs">1. Historical Elements</h5>
+              <p class="text-[11px] text-wood/70">Berkaitan dengan unsur sejarah setempat.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">⏳</span>
+              <h5 class="font-bold text-wood text-xs">2. Set in the Past</h5>
+              <p class="text-[11px] text-wood/70">Terjadi pada masa lampau yang jauh.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">👤</span>
+              <h5 class="font-bold text-wood text-xs">3. Human Characters</h5>
+              <p class="text-[11px] text-wood/70">Fokus utama pada tokoh manusia.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">🪄</span>
+              <h5 class="font-bold text-wood text-xs">4. Supernatural/Magic</h5>
+              <p class="text-[11px] text-wood/70">Mengandung keajaiban atau ilmu gaib.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">🗣️</span>
+              <h5 class="font-bold text-wood text-xs">5. Passed Down Orally</h5>
+              <p class="text-[11px] text-wood/70">Diwariskan secara lisan antar-generasi.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">📍</span>
+              <h5 class="font-bold text-wood text-xs">6. Specific Place</h5>
+              <p class="text-[11px] text-wood/70">Terkait erat dengan lokasi tertentu.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">🌋</span>
+              <h5 class="font-bold text-wood text-xs">7. Origin of Place</h5>
+              <p class="text-[11px] text-wood/70">Menceritakan asal-usul tempat/gunung.</p>
+            </div>
+
+            <div class="bg-aged p-3.5 rounded-xl border border-gold/40 shadow-sm text-center space-y-1 hover:border-gold transition">
+              <span class="text-2xl">💡</span>
+              <h5 class="font-bold text-wood text-xs">8. Moral Value</h5>
+              <p class="text-[11px] text-wood/70">Memiliki pesan moral bagi pembaca.</p>
+            </div>
+
+          </div>
+
+          <!-- MINI GAME: LEGEND OR NOT? -->
+          <div class="bg-wood/5 border border-gold/40 p-5 rounded-2xl my-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h4 class="font-serif font-bold text-wood text-base">Mini Game: Legend or Not?</h4>
+                <p class="text-xs text-wood/70">Tentukan apakah pernyataan berikut merupakan ciri khas legenda!</p>
+              </div>
+              <span class="text-xs font-bold text-terracotta bg-terracotta/10 px-2.5 py-1 rounded-full">+75 XP</span>
+            </div>
+
+            <div id="q2-game-container" class="space-y-4">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- BOTTOM NAV -->
+          <div class="flex justify-between items-center pt-4 border-t border-wood/20">
+            <button onclick="openQuest(1)" class="px-5 py-2.5 rounded-xl bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-arrow-left"></i> Prev: Quest 1
+            </button>
+            <button onclick="completeQuest(2); openQuest(3)" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs transition shadow flex items-center gap-1">
+              Next: Quest 3 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 6: QUEST 3 ================= -->
+      <section id="sec-q3" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Quest 3</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">Meet the Characters</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <p class="text-xs sm:text-sm text-wood/80 mb-6">Klik pada setiap tokoh untuk mempelajari latar belakang, peran, dan menjawab pertanyaan cepat!</p>
+
+          <!-- CHARACTER GALLERY CARDS -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            
+            <!-- DAYANG SUMBI -->
+            <div onclick="playSFX('click'); selectChar('dayang')" class="bg-aged p-5 rounded-2xl border-2 border-gold/50 shadow hover:border-gold hover:shadow-xl cursor-pointer transition text-center space-y-3 group">
+              <div class="w-20 h-20 mx-auto rounded-full bg-terracotta border-2 border-gold flex items-center justify-center text-4xl shadow group-hover:scale-110 transition">
+                👸
+              </div>
+              <h4 class="font-serif font-bold text-lg text-wood">Dayang Sumbi</h4>
+              <p class="text-xs text-wood/70 italic font-serif">"A beautiful woman and Sangkuriang's mother."</p>
+              <span class="inline-block px-3 py-1 rounded-full bg-gold/20 text-wood font-bold text-[10px] uppercase">Mother / Princess</span>
+            </div>
+
+            <!-- SANGKURIANG -->
+            <div onclick="playSFX('click'); selectChar('sangkuriang')" class="bg-aged p-5 rounded-2xl border-2 border-gold/50 shadow hover:border-gold hover:shadow-xl cursor-pointer transition text-center space-y-3 group">
+              <div class="w-20 h-20 mx-auto rounded-full bg-forest border-2 border-gold flex items-center justify-center text-4xl shadow group-hover:scale-110 transition">
+                🏹
+              </div>
+              <h4 class="font-serif font-bold text-lg text-wood">Sangkuriang</h4>
+              <p class="text-xs text-wood/70 italic font-serif">"Dayang Sumbi's powerful son."</p>
+              <span class="inline-block px-3 py-1 rounded-full bg-gold/20 text-wood font-bold text-[10px] uppercase">Main Character / Son</span>
+            </div>
+
+            <!-- TUMANG -->
+            <div onclick="playSFX('click'); selectChar('tumang')" class="bg-aged p-5 rounded-2xl border-2 border-gold/50 shadow hover:border-gold hover:shadow-xl cursor-pointer transition text-center space-y-3 group">
+              <div class="w-20 h-20 mx-auto rounded-full bg-wood border-2 border-gold flex items-center justify-center text-4xl shadow group-hover:scale-110 transition">
+                🐕
+              </div>
+              <h4 class="font-serif font-bold text-lg text-wood">Tumang</h4>
+              <p class="text-xs text-wood/70 italic font-serif">"A loyal dog who is Sangkuriang's father."</p>
+              <span class="inline-block px-3 py-1 rounded-full bg-gold/20 text-wood font-bold text-[10px] uppercase">Companion / Father</span>
+            </div>
+
+          </div>
+
+          <!-- CHARACTER DETAIL PANEL -->
+          <div id="char-detail-panel" class="bg-wood/5 border-2 border-gold p-6 rounded-2xl mb-6">
+            <p class="text-xs text-wood/60 text-center italic">Pilih salah satu karakter di atas untuk membaca cerita lengkapnya.</p>
+          </div>
+
+          <!-- BOTTOM NAV -->
+          <div class="flex justify-between items-center pt-4 border-t border-wood/20">
+            <button onclick="openQuest(2)" class="px-5 py-2.5 rounded-xl bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-arrow-left"></i> Prev: Quest 2
+            </button>
+            <button onclick="completeQuest(3); openQuest(4)" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs transition shadow flex items-center gap-1">
+              Next: Quest 4 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 7: QUEST 4 (READ LEGEND) ================= -->
+      <section id="sec-q4" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Quest 4</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">Read The Legend</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <!-- STORY SCENE NAVIGATION TABS -->
+          <div class="flex flex-wrap justify-center gap-2 mb-6">
+            <button id="scene-tab-1" onclick="loadStoryScene(1)" class="px-3.5 py-1.5 rounded-full font-bold text-xs bg-gold text-wood-dark border border-wood">Scene 1</button>
+            <button id="scene-tab-2" onclick="loadStoryScene(2)" class="px-3.5 py-1.5 rounded-full font-bold text-xs bg-wood/10 text-wood border border-wood/30">Scene 2</button>
+            <button id="scene-tab-3" onclick="loadStoryScene(3)" class="px-3.5 py-1.5 rounded-full font-bold text-xs bg-wood/10 text-wood border border-wood/30">Scene 3</button>
+            <button id="scene-tab-4" onclick="loadStoryScene(4)" class="px-3.5 py-1.5 rounded-full font-bold text-xs bg-wood/10 text-wood border border-wood/30">Scene 4</button>
+            <button id="scene-tab-5" onclick="loadStoryScene(5)" class="px-3.5 py-1.5 rounded-full font-bold text-xs bg-wood/10 text-wood border border-wood/30">Scene 5</button>
+          </div>
+
+          <!-- STORY CARD CONTAINER -->
+          <div id="story-scene-card" class="bg-aged border-2 border-gold rounded-2xl p-6 shadow-md space-y-4">
+            <!-- Scene Content injected dynamically -->
+          </div>
+
+          <!-- BOTTOM NAV -->
+          <div class="flex justify-between items-center pt-6 border-t border-wood/20">
+            <button onclick="openQuest(3)" class="px-5 py-2.5 rounded-xl bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-arrow-left"></i> Prev: Quest 3
+            </button>
+            <button onclick="completeQuest(4); openQuest(5)" class="px-6 py-2.5 rounded-xl bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs transition shadow flex items-center gap-1">
+              Next: Quest 5 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 8: QUEST 5 (LANGUAGE FEATURES) ================= -->
+      <section id="sec-q5" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Quest 5</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">Language & Generic Structure</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <!-- GENERIC STRUCTURE CARDS -->
+          <h4 class="font-serif font-bold text-wood text-base mb-3">1. Generic Structure of Legend:</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 shadow-sm space-y-2">
+              <span class="px-2 py-0.5 bg-forest text-aged font-bold text-[10px] rounded uppercase">Structure 1</span>
+              <h5 class="font-bold text-wood text-sm">Orientation</h5>
+              <p class="text-xs text-wood/80">Pengenalan tokoh, waktu, dan tempat cerita.</p>
+              <p class="text-[11px] text-terracotta italic bg-parchment/60 p-2 rounded">"Once upon a time in West Java, Dayang Sumbi lived with her son..."</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 shadow-sm space-y-2">
+              <span class="px-2 py-0.5 bg-terracotta text-aged font-bold text-[10px] rounded uppercase">Structure 2</span>
+              <h5 class="font-bold text-wood text-sm">Complication</h5>
+              <p class="text-xs text-wood/80">Kemunculan konflik atau masalah utama.</p>
+              <p class="text-[11px] text-terracotta italic bg-parchment/60 p-2 rounded">"Sangkuriang killed Tumang. Dayang Sumbi asked him to leave..."</p>
+            </div>
+
+            <div class="bg-aged p-4 rounded-xl border border-gold/50 shadow-sm space-y-2">
+              <span class="px-2 py-0.5 bg-gold text-wood-dark font-bold text-[10px] rounded uppercase">Structure 3</span>
+              <h5 class="font-bold text-wood text-sm">Resolution</h5>
+              <p class="text-xs text-wood/80">Penyelesaian masalah di akhir cerita.</p>
+              <p class="text-[11px] text-terracotta italic bg-parchment/60 p-2 rounded">"He kicked the boat until it flipped, becoming Tangkuban Perahu."</p>
+            </div>
+
+          </div>
+
+          <!-- LANGUAGE FEATURES PRACTICE -->
+          <h4 class="font-serif font-bold text-wood text-base mb-3">2. Language Features Practice:</h4>
+          <div class="bg-wood/5 border border-gold/40 p-5 rounded-2xl mb-6">
+            <p class="text-xs text-wood/80 mb-4">Ubah kata kerja bentuk pertama (Verb 1) menjadi kata kerja bentuk kedua (Simple Past Tense - Verb 2) yang dipakai dalam cerita legenda Tangkuban Perahu!</p>
+            
+            <div id="verb-practice-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- Practice inputs -->
+            </div>
+
+            <button onclick="checkVerbPractice()" class="mt-4 w-full py-2.5 bg-forest hover:bg-forest-dark text-aged font-bold text-xs rounded-xl transition shadow">
+              Check Past Tense Answers (+100 XP)
+            </button>
+          </div>
+
+          <!-- BOTTOM NAV -->
+          <div class="flex justify-between items-center pt-4 border-t border-wood/20">
+            <button onclick="openQuest(4)" class="px-5 py-2.5 rounded-xl bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-arrow-left"></i> Prev: Quest 4
+            </button>
+            <button onclick="completeQuest(5); openQuest(6)" class="px-6 py-2.5 rounded-xl bg-terracotta hover:bg-wood text-aged font-bold text-xs transition shadow flex items-center gap-1">
+              Face Boss Quiz <i class="fa-solid fa-dragon"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECTION 9: QUEST 6 (BOSS QUIZ & REFLECTION) ================= -->
+      <section id="sec-q6" class="hidden space-y-6 transition-all duration-500">
+        <div class="bg-parchment-pattern wood-border rounded-2xl p-5 sm:p-8 shadow-2xl">
+          
+          <div class="flex justify-between items-center border-b border-wood/20 pb-4 mb-6">
+            <div>
+              <span class="text-xs font-bold text-terracotta uppercase tracking-widest">Boss Quest</span>
+              <h2 class="text-2xl sm:text-3xl font-serif font-bold text-wood">Boss Quiz & Moral Value</h2>
+            </div>
+            <button onclick="showSection('quest-map')" class="px-3 py-1.5 rounded-lg bg-wood/10 hover:bg-wood/20 text-wood font-bold text-xs transition">
+              <i class="fa-solid fa-map"></i> Quest Map
+            </button>
+          </div>
+
+          <!-- QUIZ CONTAINER / CERTIFICATE -->
+          <div id="boss-quiz-body">
+            <!-- Quiz dynamically injected -->
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-wood-dark border-t-2 border-gold/40 py-3 text-center text-xs text-parchment/60">
+      <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p>LEGEND QUEST © 2026/2027 • English Learning Media SMP/MTs Class VIII</p>
+        <p class="italic text-[10px]">Tangkuban Perahu Edition • Interactive Self-Directed Learning</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- MODAL: HOW TO PLAY -->
+  <div id="modal-how-to-play" class="fixed inset-0 z-50 glass-dark hidden flex items-center justify-center p-4">
+    <div class="bg-parchment-pattern wood-border rounded-2xl max-w-lg w-full p-6 space-y-4 text-wood shadow-2xl relative">
+      <button onclick="closeModal('modal-how-to-play')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-terracotta text-aged font-bold text-sm hover:scale-105">✕</button>
+      <h3 class="font-serif font-bold text-2xl text-wood border-b border-wood/20 pb-2">How To Play</h3>
+      <div class="text-xs sm:text-sm space-y-2 text-wood/90">
+        <p>1. <strong>Selesaikan Misi:</strong> Jelajahi Quest 1 hingga Quest 6 secara berurutan.</p>
+        <p>2. <strong>Kumpulkan XP:</strong> Dapatkan XP dari setiap tantangan mini-game dan latihan untuk meningkatkan Rank Anda (Legend Rookie → Legend Master).</p>
+        <p>3. <strong>Gunakan Fitur Suara:</strong> Tekan ikon speaker untuk mendengarkan narasi teks cerita.</p>
+        <p>4. <strong>Boss Quiz:</strong> Selesaikan 10 soal evaluasi di Quest 6 untuk mendapatkan Sertifikat Pencapaian dan Bintang!</p>
+      </div>
+      <button onclick="closeModal('modal-how-to-play')" class="w-full py-2.5 bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs rounded-xl shadow">
+        Understood!
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: ELEMENT DETAIL (QUEST 1) -->
+  <div id="modal-element-detail" class="fixed inset-0 z-50 glass-dark hidden flex items-center justify-center p-4">
+    <div class="bg-parchment-pattern wood-border rounded-2xl max-w-md w-full p-6 space-y-4 text-wood shadow-2xl relative">
+      <button onclick="closeModal('modal-element-detail')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-terracotta text-aged font-bold text-sm hover:scale-105">✕</button>
+      <div id="element-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* GAME STATE MANAGEMENT */
+    const gameState = {
+      xp: 0,
+      completedQuests: new Set(),
+      rank: 'Legend Rookie',
+      soundEnabled: true,
+      currentScene: 1,
+      quizAnswers: {},
+      quizScore: 0
+    };
+
+    /* SFX SYNTHESIZER USING WEB AUDIO API */
+    function playSFX(type) {
+      if (!gameState.soundEnabled) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(400, ctx.currentTime);
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.08);
+        } else if (type === 'success') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.4);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(200, ctx.currentTime);
+          osc.frequency.setValueAtTime(150, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.3);
+        }
+      } catch (e) {
+        console.log('Audio Context error', e);
+      }
+    }
+
+    function toggleAudio() {
+      gameState.soundEnabled = !gameState.soundEnabled;
+      const icon = document.getElementById('sfxIcon');
+      if (gameState.soundEnabled) {
+        icon.className = 'fa-solid fa-volume-high';
+        playSFX('click');
+      } else {
+        icon.className = 'fa-solid fa-volume-xmark text-terracotta';
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    /* SPEECH SYNTHESIS FOR NARRATION */
+    function speakText(text) {
+      if (!gameState.soundEnabled) return;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'en-US';
+        utter.rate = 0.9;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    /* XP & RANK SYSTEM */
+    function addXP(amount) {
+      gameState.xp += amount;
+      updateStatsUI();
+      playSFX('success');
+    }
+
+    function updateStatsUI() {
+      // Calculate level based on XP
+      if (gameState.xp >= 400) {
+        gameState.rank = 'Legend Master';
+      } else if (gameState.xp >= 250) {
+        gameState.rank = 'Language Warrior';
+      } else if (gameState.xp >= 100) {
+        gameState.rank = 'Story Explorer';
+      } else {
+        gameState.rank = 'Legend Rookie';
+      }
+
+      document.getElementById('playerRank').innerText = gameState.rank;
+      document.getElementById('xpText').innerText = `${gameState.xp} / 500`;
+      
+      const pct = Math.min(100, (gameState.xp / 500) * 100);
+      document.getElementById('xpBar').style.width = `${pct}%`;
+    }
+
+    /* NAVIGATION LOGIC */
+    function showSection(sectionId) {
+      const sections = ['home', 'objectives', 'quest-map', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      sections.forEach(s => {
+        const el = document.getElementById(`sec-${s}`);
+        if (el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(`sec-${sectionId}`);
+      if (target) {
+        target.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function openQuest(num) {
+      playSFX('click');
+      showSection(`q${num}`);
+    }
+
+    function completeQuest(num) {
+      if (!gameState.completedQuests.has(num)) {
+        gameState.completedQuests.add(num);
+        const badge = document.getElementById(`badge-q${num}`);
+        if (badge) {
+          badge.innerHTML = `<i class="fa-solid fa-circle-check text-forest"></i> Completed`;
+          badge.className = "text-xs font-bold text-forest";
+        }
+      }
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    /* QUEST 1 LOGIC & GAME */
+    const q1Elements = {
+      characters: {
+        title: "Characters (Tokoh)",
+        def: "The individuals or creatures that act in the story.",
+        example: "Dayang Sumbi, Sangkuriang, and Tumang.",
+        desc: "Tokoh-tokoh utama yang menggerakkan alur cerita Tangkuban Perahu."
+      },
+      setting: {
+        title: "Setting (Latar)",
+        def: "The time and place where the story takes place.",
+        example: "In a forest in West Java, long ago in the past.",
+        desc: "Latar waktu (masa lampau) dan latar tempat (Hutan Jawa Barat)."
+      },
+      problem: {
+        title: "Problem / Complication (Masalah)",
+        def: "The challenge or conflict faced by main characters.",
+        example: "Sangkuriang wants to marry Dayang Sumbi, unaware she is his mother.",
+        desc: "Konflik utama saat Sangkuriang melamar ibunya sendiri."
+      },
+      solution: {
+        title: "Solution / Resolution (Penyelesaian)",
+        def: "How the problem is resolved at the end.",
+        example: "Dayang Sumbi tricks him, and Sangkuriang kicks the boat until it flips.",
+        desc: "Penyelesaian cerita saat perahu ditendang dan menjadi gunung."
+      }
+    };
+
+    function openElementModal(key) {
+      const data = q1Elements[key];
+      const container = document.getElementById('element-detail-content');
+      container.innerHTML = `
+        <h3 class="font-serif font-bold text-xl text-wood mb-2">${data.title}</h3>
+        <p class="text-xs text-wood/80 italic font-serif">"${data.def}"</p>
+        <div class="bg-aged p-3 rounded-xl border border-gold/40 my-3 text-xs text-wood space-y-1">
+          <p><strong>Example in Tangkuban Perahu:</strong></p>
+          <p class="text-terracotta italic font-medium">${data.example}</p>
+        </div>
+        <p class="text-xs text-wood/80">${data.desc}</p>
+        <button onclick="speakText('${data.def}')" class="mt-3 px-3 py-1.5 rounded-lg bg-gold/20 hover:bg-gold/30 text-wood font-bold text-xs flex items-center gap-1">
+          <i class="fa-solid fa-volume-high"></i> Listen Pronunciation
+        </button>
+      `;
+      openModal('modal-element-detail');
+    }
+
+    function initQ1Game() {
+      const container = document.getElementById('q1-game-container');
+      const questions = [
+        { id: 'g1', item: 'West Java, in ancient times', options: ['Setting', 'Characters', 'Problem'], correct: 'Setting' },
+        { id: 'g2', item: 'Dayang Sumbi, Sangkuriang, Tumang', options: ['Problem', 'Characters', 'Solution'], correct: 'Characters' },
+        { id: 'g3', item: 'Sangkuriang falls in love with his mother', options: ['Characters', 'Setting', 'Problem'], correct: 'Problem' },
+        { id: 'g4', item: 'Sangkuriang kicks the boat, forming a mountain', options: ['Solution', 'Characters', 'Setting'], correct: 'Solution' }
+      ];
+
+      container.innerHTML = questions.map((q, idx) => `
+        <div class="bg-aged p-3.5 rounded-xl border border-gold/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <span class="text-xs text-wood font-semibold">${idx + 1}. "${q.item}"</span>
+          <select id="q1-sel-${q.id}" class="bg-parchment text-wood text-xs font-bold p-1.5 rounded-lg border border-gold/60">
+            <option value="">Select Element...</option>
+            ${q.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+          </select>
+        </div>
+      `).join('');
+    }
+
+    function checkQ1Game() {
+      const g1 = document.getElementById('q1-sel-g1').value;
+      const g2 = document.getElementById('q1-sel-g2').value;
+      const g3 = document.getElementById('q1-sel-g3').value;
+      const g4 = document.getElementById('q1-sel-g4').value;
+
+      if (g1 === 'Setting' && g2 === 'Characters' && g3 === 'Problem' && g4 === 'Solution') {
+        addXP(50);
+        document.getElementById('btn-submit-q1').innerText = "✓ Completed! (+50 XP)";
+        document.getElementById('btn-submit-q1').className = "mt-4 w-full py-3 bg-green-700 text-aged font-bold text-sm rounded-xl shadow";
+      } else {
+        playSFX('wrong');
+        alert('Beberapa jawaban belum tepat. Coba periksa kembali pasangan elemen ceritanya!');
+      }
+    }
+
+    /* QUEST 2 GAME LOGIC */
+    function initQ2Game() {
+      const container = document.getElementById('q2-game-container');
+      const statements = [
+        { id: 'q2_1', text: 'Cerita menceritakan asal-usul terbentuknya Gunung Tangkuban Perahu.', isLegend: true, exp: 'Benar! Legenda sering menceritakan asal-usul fenomena alam atau tempat.' },
+        { id: 'q2_2', text: 'Cerita berlatar waktu di masa kini dengan teknologi modern.', isLegend: false, exp: 'Salah! Legenda selalu berlatar waktu di masa lampau (set in the past).' },
+        { id: 'q2_3', text: 'Cerita diwariskan secara lisan dari generasi ke generasi.', isLegend: true, exp: 'Benar! Diwariskan turun-temurun (passed down through generations).' },
+        { id: 'q2_4', text: 'Mengandung unsur keajaiban seperti pembuatan danau dalam semalam.', isLegend: true, exp: 'Benar! Mengandung supernatural atau magical elements.' }
+      ];
+
+      container.innerHTML = statements.map((s, idx) => `
+        <div class="bg-aged p-4 rounded-xl border border-gold/40 space-y-2">
+          <p class="text-xs sm:text-sm text-wood font-medium">${idx + 1}. "${s.text}"</p>
+          <div class="flex gap-3">
+            <button onclick="checkQ2Answer('${s.id}', true, ${s.isLegend}, '${s.exp}')" class="px-4 py-1.5 rounded-lg bg-forest text-aged text-xs font-bold hover:bg-forest-dark transition">
+              Legend
+            </button>
+            <button onclick="checkQ2Answer('${s.id}', false, ${s.isLegend}, '${s.exp}')" class="px-4 py-1.5 rounded-lg bg-terracotta text-aged text-xs font-bold hover:bg-wood transition">
+              Not Legend
+            </button>
+          </div>
+          <p id="q2-feedback-${s.id}" class="text-xs font-bold hidden mt-1"></p>
+        </div>
+      `).join('');
+    }
+
+    let q2Score = 0;
+    function checkQ2Answer(id, userChoice, isLegend, explanation) {
+      const fb = document.getElementById(`q2-feedback-${id}`);
+      fb.classList.remove('hidden');
+      if (userChoice === isLegend) {
+        playSFX('success');
+        fb.className = "text-xs font-bold text-forest mt-1";
+        fb.innerText = "✓ " + explanation;
+        q2Score++;
+        if (q2Score === 4) addXP(75);
+      } else {
+        playSFX('wrong');
+        fb.className = "text-xs font-bold text-terracotta mt-1";
+        fb.innerText = "✗ " + explanation;
+      }
+    }
+
+    /* QUEST 3 CHARACTER LOGIC */
+    const charData = {
+      dayang: {
+        name: "Dayang Sumbi",
+        title: "The Beautiful Mother",
+        bio: "Dayang Sumbi is a beautiful and wise princess from West Java. She possessed youth and magic. After losing her weaving tool, she married Tumang and gave birth to Sangkuriang.",
+        bioIndo: "Dayang Sumbi adalah putri cantik yang memiliki kesaktian dan awet muda. Ia adalah ibu dari Sangkuriang.",
+        question: "Why did Dayang Sumbi reject Sangkuriang's proposal?",
+        options: ["Because he was poor", "Because she recognized the scar and knew he was her son", "Because he lost his dog"],
+        answer: 1
+      },
+      sangkuriang: {
+        name: "Sangkuriang",
+        title: "The Powerful Son",
+        bio: "Sangkuriang was a strong young hunter. After accidentally killing Tumang, he was banished. Years later, he fell in love with Dayang Sumbi without knowing she was his mother.",
+        bioIndo: "Sangkuriang adalah pemuda sakti yang berburu di hutan. Ia jatuh cinta pada Dayang Sumbi tanpa menyadari wanita itu adalah ibunya.",
+        question: "What task was Sangkuriang given by Dayang Sumbi?",
+        options: ["Build a palace in 10 years", "To build a dam, lake, and big boat in one night", "To hunt 100 deer"],
+        answer: 1
+      },
+      tumang: {
+        name: "Tumang",
+        title: "The Loyal Canine Companion",
+        bio: "Tumang was a loyal dog who was actually a god trapped in a dog's body. He retrieved Dayang Sumbi's weaving tool and became Sangkuriang's father.",
+        bioIndo: "Tumang adalah anjing setia yang sejatinya merupakan dewa penjelmaan dan ayah dari Sangkuriang.",
+        question: "Who was Tumang actually?",
+        options: ["A normal wild wolf", "Sangkuriang's father and a transformed god", "Dayang Sumbi's brother"],
+        answer: 1
+      }
+    };
+
+    function selectChar(key) {
+      const c = charData[key];
+      const panel = document.getElementById('char-detail-panel');
+      panel.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif font-bold text-xl text-wood">${c.name} <span class="text-xs font-normal text-wood/70">(${c.title})</span></h3>
+            <button onclick="speakText('${c.bio}')" class="px-3 py-1 bg-gold/20 text-wood font-bold text-xs rounded-lg flex items-center gap-1">
+              <i class="fa-solid fa-volume-high"></i> Listen
+            </button>
+          </div>
+          <p class="text-xs sm:text-sm text-wood italic font-serif">"${c.bio}"</p>
+          <p class="text-xs text-wood/80 bg-parchment/60 p-2.5 rounded-lg"><strong>Terjemahan:</strong> ${c.bioIndo}</p>
+          
+          <div class="border-t border-wood/20 pt-3">
+            <h5 class="font-bold text-xs text-terracotta uppercase">Quick Check Question:</h5>
+            <p class="text-xs font-medium text-wood mt-1">${c.question}</p>
+            <div class="space-y-1.5 mt-2">
+              ${c.options.map((opt, idx) => `
+                <button onclick="checkCharQuestion('${key}', ${idx})" class="w-full text-left px-3 py-2 bg-aged hover:bg-gold/20 rounded-lg text-xs font-semibold text-wood border border-gold/40 transition">
+                  ${String.fromCharCode(65 + idx)}. ${opt}
+                </button>
+              `).join('')}
+            </div>
+            <p id="char-q-fb-${key}" class="text-xs font-bold mt-2 hidden"></p>
+          </div>
+        </div>
+      `;
+    }
+
+    function checkCharQuestion(key, userIdx) {
+      const c = charData[key];
+      const fb = document.getElementById(`char-q-fb-${key}`);
+      fb.classList.remove('hidden');
+      if (userIdx === c.answer) {
+        playSFX('success');
+        fb.className = "text-xs font-bold text-forest mt-2";
+        fb.innerText = "✓ Correct answer! +25 XP";
+        addXP(25);
+      } else {
+        playSFX('wrong');
+        fb.className = "text-xs font-bold text-terracotta mt-2";
+        fb.innerText = "✗ Incorrect! Re-read the bio above.";
+      }
+    }
+
+    /* QUEST 4 STORY SCENES DATA */
+    const storyScenes = [
+      {
+        scene: 1,
+        title: "Scene 1: The Beginning (Orientation)",
+        english: "Once upon a time in West Java, Dayang Sumbi lived with her son Sangkuriang and a dog named Tumang. One day, her weaving tool fell. She promised to marry whoever retrieved it. Tumang brought it back, and she married him.",
+        indonesian: "Dahulu kala di Jawa Barat, Dayang Sumbi tinggal bersama putranya Sangkuriang dan seekor anjing bernama Tumang. Suatu hari alat tenunnya jatuh dan ia berjanji menikahi siapa pun yang mengambilkannya. Tumang mengembalikannya, lalu mereka menikah.",
+        icon: "👸🐕"
+      },
+      {
+        scene: 2,
+        title: "Scene 2: The Conflict Begins (Complication)",
+        english: "Sangkuriang went hunting with Tumang, unaware that the dog was his father. In anger when Tumang refused to chase a deer, Sangkuriang killed Tumang. When Dayang Sumbi found out, she hit Sangkuriang's head and banished him.",
+        indonesian: "Sangkuriang pergi berburu bersama Tumang tanpa tahu anjing itu adalah ayahnya. Dalam kemarahan karena Tumang menolak mengejar rusa, Sangkuriang membunuh Tumang. Dayang Sumbi memukul kepalanya dan mengusirnya.",
+        icon: "🏹💥"
+      },
+      {
+        scene: 3,
+        title: "Scene 3: Years Later",
+        english: "Years later, Sangkuriang returned as a strong adult man. He met Dayang Sumbi, who remained young. They did not recognize each other and fell in love. But soon, Dayang Sumbi noticed the scar on his head and realized he was her son.",
+        indonesian: "Bertahun-tahun kemudian, Sangkuriang kembali sebagai pemuda sakti. Ia bertemu Dayang Sumbi yang tetap awet muda dan saling jatuh cinta. Namun Dayang Sumbi melihat bekas luka di kepalanya dan sadar ia adalah putranya.",
+        icon: "❤️🩹"
+      },
+      {
+        scene: 4,
+        title: "Scene 4: The Impossible Task",
+        english: "Dayang Sumbi refused to marry him. To prevent the marriage, she asked Sangkuriang to build a vast lake and a huge boat in just one night. Sangkuriang summoned spirits and almost finished the task before dawn.",
+        indonesian: "Dayang Sumbi menolak menikahinya. Ia memberi syarat membangun danau besar dan perahu raksasa dalam semalam. Sangkuriang mengerahkan makhluk halus dan hampir menyelesaikannya sebelum fajar.",
+        icon: "🚣‍♂️🪄"
+      },
+      {
+        scene: 5,
+        title: "Scene 5: The Flipped Boat (Resolution)",
+        english: "Dayang Sumbi tricked him by waving a red silk cloth, making the roosters crow early. Believing he failed, Sangkuriang became furious and kicked the unfinished boat until it flipped upside down, becoming Mount Tangkuban Perahu.",
+        indonesian: "Dayang Sumbi mengebohonginya dengan membentangkan kain sutra merah sehingga ayam berkokok. Mengira ia gagal, Sangkuriang marah dan menendang perahu hingga terbalik, menjadi Gunung Tangkuban Perahu.",
+        icon: "🌋✨"
+      }
+    ];
+
+    function loadStoryScene(num) {
+      gameState.currentScene = num;
+      playSFX('click');
+
+      // Update tab styles
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`scene-tab-${i}`);
+        if (i === num) {
+          btn.className = "px-3.5 py-1.5 rounded-full font-bold text-xs bg-gold text-wood-dark border border-wood shadow";
+        } else {
+          btn.className = "px-3.5 py-1.5 rounded-full font-bold text-xs bg-wood/10 text-wood border border-wood/30";
+        }
+      }
+
+      const s = storyScenes[num - 1];
+      const card = document.getElementById('story-scene-card');
+      card.innerHTML = `
+        <div class="flex items-center justify-between border-b border-wood/20 pb-3">
+          <h3 class="font-serif font-bold text-lg text-wood">${s.title}</h3>
+          <span class="text-3xl">${s.icon}</span>
+        </div>
+
+        <div class="space-y-3">
+          <div class="bg-parchment/60 p-4 rounded-xl border border-gold/40">
+            <p class="text-xs sm:text-base text-wood font-serif italic leading-relaxed">"${s.english}"</p>
+          </div>
+
+          <div class="flex items-center gap-2 pt-2">
+            <button onclick="speakText('${s.english.replace(/'/g, "\\'")}')" class="px-4 py-2 bg-gold hover:bg-gold-bright text-wood-dark font-bold text-xs rounded-lg transition shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-play"></i> Listen Scene Narration
+            </button>
+            <button onclick="toggleTranslation()" class="px-4 py-2 bg-wood hover:bg-wood-light text-aged font-bold text-xs rounded-lg transition shadow">
+              <i class="fa-solid fa-language"></i> Toggle Translation
+            </button>
+          </div>
+
+          <div id="story-translation-box" class="hidden bg-aged p-3 rounded-xl border border-terracotta/40 text-xs text-wood">
+            <strong>Terjemahan Bahasa Indonesia:</strong>
+            <p class="mt-1">${s.indonesian}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleTranslation() {
+      const box = document.getElementById('story-translation-box');
+      if (box) box.classList.toggle('hidden');
+    }
+
+    /* QUEST 5 VERB PRACTICE */
+    function initVerbPractice() {
+      const container = document.getElementById('verb-practice-container');
+      const verbs = [
+        { v1: 'live', v2: 'lived' },
+        { v1: 'promise', v2: 'promised' },
+        { v1: 'kill', v2: 'killed' },
+        { v1: 'return', v2: 'returned' },
+        { v1: 'kick', v2: 'kicked' },
+        { v1: 'build', v2: 'built' }
+      ];
+
+      container.innerHTML = verbs.map((item, idx) => `
+        <div class="bg-aged p-3 rounded-xl border border-gold/40 flex items-center justify-between gap-2">
+          <span class="text-xs font-bold text-wood">${idx + 1}. Verb 1: <strong>${item.v1}</strong> →</span>
+          <input id="verb-input-${idx}" type="text" placeholder="Past Tense (Verb 2)" class="bg-parchment text-wood font-bold text-xs p-1.5 rounded border border-gold/60 w-32 uppercase" />
+        </div>
+      `).join('');
+    }
+
+    function checkVerbPractice() {
+      const answers = ['LIVED', 'PROMISED', 'KILLED', 'RETURNED', 'KICKED', 'BUILT'];
+      let correct = 0;
+      for (let i = 0; i < 6; i++) {
+        const val = document.getElementById(`verb-input-${i}`).value.trim().toUpperCase();
+        if (val === answers[i]) {
+          correct++;
+        }
+      }
+
+      if (correct === 6) {
+        addXP(100);
+        alert('Luar biasa! Seluruh kata kerja Past Tense kamu benar! (+100 XP)');
+      } else {
+        playSFX('wrong');
+        alert(`Kamu menjawab ${correct} dari 6 dengan benar. Periksa kembali penulisan regular/irregular verb!`);
+      }
+    }
+
+    /* QUEST 6 BOSS QUIZ DATA */
+    const quizData = [
+      { q: "1. What is the social function of a narrative text?", options: ["To describe a particular person", "To entertain the readers with a story", "To explain how to make something"], answer: 1 },
+      { q: "2. Where did the story of Tangkuban Perahu take place?", options: ["Central Java", "West Java", "East Java"], answer: 1 },
+      { q: "3. Who was Tumang in reality?", options: ["A wild wolf", "A transformed god and Sangkuriang's father", "Dayang Sumbi's servant"], answer: 1 },
+      { q: "4. Why did Dayang Sumbi hit Sangkuriang's head?", options: ["Because he broke her weaving tool", "Because he killed Tumang", "Because he refused to hunt"], answer: 1 },
+      { q: "5. What condition did Dayang Sumbi give to Sangkuriang before marriage?", options: ["To hunt 100 deer", "To build a lake and a boat in one night", "To defeat a dragon"], answer: 1 },
+      { q: "6. How did Dayang Sumbi stop Sangkuriang from finishing the boat?", options: ["By using magic powders", "By weaving red silk cloth to simulate dawn", "By calling the village army"], answer: 1 },
+      { q: "7. What happened to the boat after Sangkuriang kicked it?", options: ["It broke into small pieces", "It turned upside down and became Mount Tangkuban Perahu", "It sank into the sea"], answer: 1 },
+      { q: "8. What tense is mostly used in Narrative Text?", options: ["Simple Present Tense", "Simple Past Tense", "Future Tense"], answer: 1 },
+      { q: "9. Which word is an action verb in past tense?", options: ["Is", "Kicked", "Beautiful"], answer: 1 },
+      { q: "10. What is the moral value of The Legend of Tangkuban Perahu?", options: ["Do not trust anyone", "We must control our anger and be honest to our parents", "Always use magic in life"], answer: 1 }
+    ];
+
+    function initBossQuiz() {
+      const container = document.getElementById('boss-quiz-body');
+      container.innerHTML = `
+        <div class="space-y-6">
+          <p class="text-xs sm:text-sm text-wood/80">Jawab 10 pertanyaan evaluasi berikut untuk membuktikan penguasaan materi legenda Tangkuban Perahu!</p>
+
+          <div id="quiz-questions-list" class="space-y-4">
+            ${quizData.map((item, qIdx) => `
+              <div class="bg-aged p-4 rounded-xl border border-gold/50 space-y-2">
+                <h5 class="font-bold text-xs sm:text-sm text-wood">${item.q}</h5>
+                <div class="space-y-1.5">
+                  ${item.options.map((opt, oIdx) => `
+                    <label class="flex items-center gap-2 p-2 rounded-lg bg-parchment/50 hover:bg-gold/20 cursor-pointer text-xs text-wood">
+                      <input type="radio" name="quiz_q_${qIdx}" value="${oIdx}" class="text-gold focus:ring-gold" />
+                      <span>${opt}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <button onclick="submitBossQuiz()" class="w-full py-3.5 bg-gradient-to-r from-terracotta to-gold text-aged font-serif font-bold text-sm rounded-xl shadow-xl hover:scale-105 transition">
+            Submit Boss Quiz Answers
+          </button>
+        </div>
+      `;
+    }
+
+    function submitBossQuiz() {
+      let score = 0;
+      for (let i = 0; i < 10; i++) {
+        const selected = document.querySelector(`input[name="quiz_q_${i}"]:checked`);
+        if (selected && parseInt(selected.value) === quizData[i].answer) {
+          score++;
+        }
+      }
+
+      gameState.quizScore = score;
+      addXP(score * 10);
+      completeQuest(6);
+
+      let stars = "⭐";
+      if (score >= 8) stars = "⭐⭐⭐";
+      else if (score >= 6) stars = "⭐⭐";
+
+      const container = document.getElementById('boss-quiz-body');
+      container.innerHTML = `
+        <div class="text-center space-y-4 bg-aged p-6 rounded-2xl border-2 border-gold shadow-xl">
+          <span class="text-4xl block">${stars}</span>
+          <h3 class="font-serif font-bold text-2xl text-wood">QUIZ COMPLETED!</h3>
+          <p class="text-sm text-wood font-medium">Skor Kamu: <strong>${score} / 10</strong></p>
+
+          <div class="bg-wood-dark text-parchment p-6 rounded-2xl border-2 border-gold text-left space-y-3 max-w-md mx-auto shadow-2xl">
+            <div class="text-center border-b border-gold/30 pb-3">
+              <span class="text-[10px] text-gold uppercase tracking-widest block">Certificate of Completion</span>
+              <h4 class="font-serif font-bold text-xl text-gold-bright">LEGEND MASTER</h4>
+            </div>
+            <p class="text-xs text-parchment/80 text-center">Diberikan kepada Explorer atas ketuntasan pembelajaran materi Narrative Text (Legend) Tangkuban Perahu.</p>
+            <div class="flex justify-between items-center text-xs pt-2 border-t border-gold/20">
+              <span>Rank: <strong>${gameState.rank}</strong></span>
+              <span>Total XP: <strong>${gameState.xp}</strong></span>
+            </div>
+          </div>
+
+          <!-- EXIT TICKET REFLECTION -->
+          <div class="bg-wood/5 border border-gold/40 p-4 rounded-xl text-left space-y-3 mt-6">
+            <h4 class="font-serif font-bold text-wood text-sm">Exit Ticket / Refleksi Pembelajaran:</h4>
+            <p class="text-xs text-wood/80">Apa pesan moral (moral value) terpenting yang kamu dapatkan dari cerita ini?</p>
+            <textarea id="reflectionText" rows="3" placeholder="Tuliskan refleksi singkat kamu di sini..." class="w-full bg-parchment p-2.5 rounded-lg border border-gold/60 text-xs text-wood font-medium focus:ring-gold"></textarea>
+            <button onclick="saveReflection()" class="w-full py-2 bg-forest text-aged font-bold text-xs rounded-lg shadow">
+              Save Reflection & Finish Adventure
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function saveReflection() {
+      const text = document.getElementById('reflectionText').value.trim();
+      if (text) {
+        playSFX('success');
+        alert('Refleksi berhasil disimpan! Selamat, kamu telah menyelesaikan seluruh rangkaian LEGEND QUEST!');
+      } else {
+        alert('Mohon tuliskan pesan moral singkat sebelum menyelesaikan refleksi.');
+      }
+    }
+
+    /* INITIALIZATION ON WINDOW LOAD */
+    window.onload = function() {
+      initQ1Game();
+      initQ2Game();
+      selectChar('dayang');
+      loadStoryScene(1);
+      initVerbPractice();
+      initBossQuiz();
+      updateStatsUI();
+    };
+  </script>
+</body>
+</html>
